@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #461220;
+    color: #FED0BB;
+    display: flex;
+    font-family: 'Raleway', sans-serif;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    min-height: 100vh;
+}
+
+p {
+    margin: 5px 0;
+}
+
+h2 {
+    margin: 10px 0 20px;
+    text-align: center;
+}
+
+input[type=checkbox] {
+    margin-right: 0;
+}
+
+.container {
+    background-color: #b23a48e8;
+    box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    width: 350px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.result-container {
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 12px 10px;
+    height: 50px;
+    width: 100%;
+}
+
+.result-container #result {
+    word-wrap: break-word;
+    max-width: calc(100% - 40px);
+}
+
+.result-container .btn {
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 40px;
+    width: 40px;
+}
+
+.btn {
+    border: none;
+    color: #461220;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 12px;
+    background-color: #FCB9B2;
+}
+
+.btn-large {
+    display: block;
+    width: 100%;
+}
+
+.setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+@media screen and (max-width: 400px) {
+    .result-container {
+        font-size: 14px;
+    }
+}
+
+html {
+    height: 100%;
+}
+
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #461220 50%, #FCB9B2 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: .5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
+}
+
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 8s;
+}
+
+.bg3 {
+    animation-duration: 6s;
+}
+
+.content {
+    border-radius: .25em;
+    box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+    box-sizing: border-box;
+    left: 50%;
+    padding: 10vmin;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-family: monospace;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(25%);
+    }
+}
