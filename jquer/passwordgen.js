@@ -1,90 +1,79 @@
-//Dom ele 
-// https://codepen.io/FlorinPop17/pen/BaBePej
-const reslutEl = document.getElementById('result');
+const resultEl = document.getElementById('result');
 const lengthEl = document.getElementById('length');
-const upperEl = document.getElementById('uppercase');
-const lowerEl = document.getElementById('lowercase');
-const numnerEl = document.getElementById('numbers');
-const symboEl = document.getElementById('symbols');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
-const clipboardEl = document.getElementById('clipboard');
+const clipboard = document.getElementById('clipboard');
 
-const randFunc = {
-    lower: generateRandLow,
-    upper: generateRandUpp,
-    number: generateRandNum,
-    symbol: generateRandSym
-};
-//generate event lisnter
-generateEl.addEventListener('click', (e) => {
-    const length = +lengthEl.value;
-    const hasLower = +lowerEl.checked;
-    const hasUpper = +upperEl.checked;
-    const hasNumber = +numnerEl.checked;
-    const hasSymbol = +symboEl.checked;
+const randomFunc = {
+    lower: getRandomLower,
+    upper: getRandomUpper,
+    number: getRandomNumber,
+    symbol: getRandomSymbol
+}
 
-    console.log(hasLower + hasNumber + hasUpper + hasSymbol);
-    reslutEl.innerText = generatePassKey(hasUpper, hasLower, hasNumber, hasSymbol, length);
+clipboard.addEventListener('click', () => {
+    const textarea = document.createElement('textarea');
+    const password = resultEl.innerText;
+
+    if (!password) { return; }
+
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    alert('Password copied to clipboard');
 });
 
+generate.addEventListener('click', () => {
+    const length = +lengthEl.value;
+    const hasLower = lowercaseEl.checked;
+    const hasUpper = uppercaseEl.checked;
+    const hasNumber = numbersEl.checked;
+    const hasSymbol = symbolsEl.checked;
 
-// Generate pwd
-function generatePassKey(upper, lower, number, symbol, length) {
-    // initiate var
-    // filter out 
-    //loop over length call func for each type
-    // add final pwd and store in val and return.
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+});
 
-    let genePwd = '';
-    const typesCount = lower + upper + number + symbol + length;
-    console.log("land : " + typesCount);
-    const typesArr = [{ upper }, { lower }, { number }, { symbol }].filter(item => Object.values(item)[0]);
-    console.log("typesArr : " + typesArr);
+function generatePassword(lower, upper, number, symbol, length) {
+    let generatedPassword = '';
+    const typesCount = lower + upper + number + symbol;
+    const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
 
+    // Doesn't have a selected type
     if (typesCount === 0) {
-
         return '';
-        alert('kuch toh check kar');
-
     }
-    for (let i = 0; i < length; i += length) {
-        // console.log('entering loop');
+
+    // create a loop
+    for (let i = 0; i < length; i += typesCount) {
         typesArr.forEach(type => {
             const funcName = Object.keys(type)[0];
-            genePwd += randFunc[funcName]();
-            console.log('FuncName:' + funcName);
+            generatedPassword += randomFunc[funcName]();
         });
     }
-    console.log('genpass:' + genePwd.slice(0, length) + "Genepass: " + genePwd);
+
+    const finalPassword = generatedPassword.slice(0, length);
+
+    return finalPassword;
 }
 
-//generator functions
-function generateRandLow() {
-
+function getRandomLower() {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-    // console.log(Math.floor(Math.random() * 26) + 97);◘
 }
 
-function generateRandUpp() {
-
+function getRandomUpper() {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    // console.log(Math.floor(Math.random() * 26) + 97);◘
 }
 
-function generateRandNum() {
-
-    return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-    // console.log(Math.floor(Math.random() * 26) + 97);◘
+function getRandomNumber() {
+    return +String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 }
 
-function generateRandSym() {
-    const symbiote = '!@#$%^&*(){}[]<>#*/=';
-    // return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-
-    return symbiote[Math.floor(Math.random() * symbiote.length)];
-
+function getRandomSymbol() {
+    const symbols = '!@#$%^&*(){}[]=<>/,.'
+    return symbols[Math.floor(Math.random() * symbols.length)];
 }
-
-// console.log(generateRandLow());
-// console.log(generateRandUpp());
-// console.log(generateRandNum());
